@@ -1,11 +1,27 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Untitled Document</title>
-    </head>
-    
-    <body>
-    	<p>こんにちは。</p>
-    </body>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>JSの練習とかもろもろやる。</title>
+<script src="./js/jquery-2.1.1.min.js"></script>
+<!--script src="./js/jquery-1.11.1.js"></script-->
+<script src="./js/main.js"></script>
+<script type="text/javascript">
+(function($) {
+    $('h5').text('テキスト');
+    $('li').text( function(idx, val) {
+        return val;
+    });
+    alert($('li:first').text());
+    $('li:last').text('jQuery（ライブラリ）');
+})(jQuery);
+</script>
+</head>
+<body>
+<h5>リンク</h5>
+<ul>
+    <li><a href="http://www.w3.prg/html/">HTML</a>(W3C)</li>
+    <li></li>
+</ul>
+  </body>
 </html>
