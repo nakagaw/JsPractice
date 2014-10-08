@@ -2,26 +2,142 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>JSの練習とかもろもろやる。</title>
+<title>JSの練習とかもろもろやる</title>
+<style type="text/css">
+ul#tabNav01 li,
+ul#tabNav02 li {
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+	padding: 10px;
+	border: 1px solid #111;
+	list-style: none;
+}
+ul#tabNav01 li.active,
+ul#tabNav02 li.on {
+	background-color: #ff0;
+}
+div#contentsBody div,
+div#section div {
+	width: 50px;
+	padding: 200px;
+	background-color: #111;
+	color: #fff;
+}
+pre {
+	margin-bottom: 20px;
+	padding: 15px;
+	border: 5px solid #111;
+	background-color: #eee;
+}
+</style>
 <script src="./js/jquery-2.1.1.min.js"></script>
 <!--script src="./js/jquery-1.11.1.js"></script-->
 <script src="./js/main.js"></script>
 <script type="text/javascript">
+/*----------------------------------------------
+
+jquery.cookie.js
+
+----------------------------------------------*/
+
+jQuery.cookie = function(name, value, options) {
+		if (typeof value != 'undefined') { // name and value given, set cookie
+				options = options || {};
+				if (value === null) {
+						value = '';
+						options.expires = -1;
+				}
+				var expires = '';
+				if (options.expires && (typeof options.expires == 'number' || options.expires.toUTCString)) {
+						var date;
+						if (typeof options.expires == 'number') {
+								date = new Date();
+								date.setTime(date.getTime() + (options.expires * 24 * 60 * 60 * 1000));
+						} else {
+								date = options.expires;
+						}
+						expires = '; expires=' + date.toUTCString(); // use expires attribute, max-age is not supported by IE
+				}
+				var path = options.path ? '; path=' + options.path : '';
+				var domain = options.domain ? '; domain=' + options.domain : '';
+				var secure = options.secure ? '; secure' : '';
+				document.cookie = [name, '=', encodeURIComponent(value), expires, path, domain, secure].join('');
+		} else { // only name given, get cookie
+				var cookieValue = null;
+				if (document.cookie && document.cookie != '') {
+						var cookies = document.cookie.split(';');
+						for (var i = 0; i < cookies.length; i++) {
+								var cookie = jQuery.trim(cookies[i]);
+								// Does this cookie string begin with the name we want?
+								if (cookie.substring(0, name.length + 1) == (name + '=')) {
+										cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+										break;
+								}
+						}
+				}
+				return cookieValue;
+		}
+};
+
+
 (function($) {
-    $('h5').text('テキスト');
-    $('li').text( function(idx, val) {
-        return val;
-    });
-    alert($('li:first').text());
-    $('li:last').text('jQuery（ライブラリ）');
+	$(function() {
+		var tab = $('#tabNav01 li');
+		var sec = $('#contentsBody div');
+		var num = 0;
+
+		console.log(num);
+		$('#contentsBody div:not(:eq('+num+'))').hide();
+
+		tab.click(function (){
+			tab.removeClass('active');
+			$(this).addClass('active');
+			sec.hide();
+
+			var secID = $($(this).find('a').attr("href"));
+			secID.show();
+
+			$.cookie('num');
+		});
+
+/*
+if ($.cookie('index')) {
+  index = $.cookie('index');
+  li.removeClass('active').eq(index).addClass('active');
+  contents.hide().eq(index).show();
+} */
+//■cookieの取得
+//cookieの値を取得したい場合は次のように記述します。
+//$.cookie("KEY");
+
+//cookieの削除
+//既存のクッキーを削除するには、$.removeCookieメソッドを利用します。
+
+//$.removeCookie("KEY");
+//パスを指定する場合は、次のように記述します。
+
+//$.removeCookie("KEY", { path: "/" });
+
+	});
 })(jQuery);
 </script>
 </head>
 <body>
-<h5>リンク</h5>
-<ul>
-    <li><a href="http://www.w3.prg/html/">HTML</a>(W3C)</li>
-    <li></li>
-</ul>
-  </body>
+
+	<ul id="tabNav01">
+		<li class="active"><a href="#sec01">tab A</a></li>
+		<li><a href="#sec02">tab B</a></li>
+		<li><a href="#sec03">tab C</a></li>
+		<li><a href="#sec04">tab D</a></li>
+		<li><a href="#sec05">tab E</a></li>
+	</ul>
+	<div id="contentsBody">
+		<div id="sec01">A</div>
+		<div id="sec02">B</div>
+		<div id="sec03">C</div>
+		<div id="sec04">D</div>
+		<div id="sec05">E</div>
+	</div>
+</body>
 </html>
