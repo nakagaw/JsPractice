@@ -84,7 +84,7 @@ jQuery.cookie = function(name, value, options) {
 	var sec = $('#contentsBody div');
 	var num = 0;
 
-	console.log(num);
+	//console.log(num);
 	$('#contentsBody div:not(:eq('+num+'))').hide();
 
 	tab.click(function (){
@@ -123,7 +123,8 @@ function setCookie(name, value, expires, domain, path, secure) {
 	c += name + '=' + encodeURIComponent(value);
 	if(expires) {
 		var exp = new Date();
-		exp.setDate(exp.getData()+expires);
+		console.log(exp);
+		exp.setDate(exp.getDate() + expires);
 		c += '; expires=' + exp.toGMTString();
 	}
 	if(domain) {c += '; domain =' + domain;}
@@ -131,6 +132,7 @@ function setCookie(name, value, expires, domain, path, secure) {
 	if(secure) {c += '; secure';}
 	document.cookie = c;
 
+	console.log(c);
 }
 
 //クッキー値を取得
@@ -138,6 +140,7 @@ function getCookie(name) {
 	var cs = document.cookie.split(';');
 	for (var i = 0; i < cs.length; i++) {
 		var kv = cs[i].split('=');
+	console.log(kv);
 		if(kv[0] == name) { return decodeURIComponent(kv[1]); }
 	}
 	return null;
@@ -145,7 +148,7 @@ function getCookie(name) {
 
 var cnt = getCookie('js_cnt');
 cnt = cnt ? ++cnt : 1;
-setCookie('js_cnt, cnt, 90');
+setCookie('js_cnt', cnt, 3);
 document.write('あなたはこのサイトに' + cnt + '回、アクセスしました。');
 
 </script>
