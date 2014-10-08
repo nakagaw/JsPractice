@@ -36,10 +36,7 @@ pre {
 <script src="./js/main.js"></script>
 <script type="text/javascript">
 /*----------------------------------------------
-
 jquery.cookie.js
-
-----------------------------------------------*/
 
 jQuery.cookie = function(name, value, options) {
 		if (typeof value != 'undefined') { // name and value given, set cookie
@@ -79,27 +76,25 @@ jQuery.cookie = function(name, value, options) {
 				return cookieValue;
 		}
 };
-
+----------------------------------------------*/
 
 (function($) {
 	$(function() {
-		var tab = $('#tabNav01 li');
-		var sec = $('#contentsBody div');
-		var num = 0;
+	var tab = $('#tabNav01 li');
+	var sec = $('#contentsBody div');
+	var num = 0;
 
-		console.log(num);
-		$('#contentsBody div:not(:eq('+num+'))').hide();
+	console.log(num);
+	$('#contentsBody div:not(:eq('+num+'))').hide();
 
-		tab.click(function (){
-			tab.removeClass('active');
-			$(this).addClass('active');
-			sec.hide();
+	tab.click(function (){
+		tab.removeClass('active');
+		$(this).addClass('active');
+		sec.hide();
 
-			var secID = $($(this).find('a').attr("href"));
-			secID.show();
-
-			$.cookie('num');
-		});
+		var secID = $($(this).find('a').attr("href"));
+		secID.show();
+	});
 
 /*
 if ($.cookie('index')) {
@@ -121,6 +116,38 @@ if ($.cookie('index')) {
 
 	});
 })(jQuery);
+
+//クッキーの登録
+function setCookie(name, value, expires, domain, path, secure) {
+	var c = '';
+	c += name + '=' + encodeURIComponent(value);
+	if(expires) {
+		var exp = new Date();
+		exp.setDate(exp.getData()+expires);
+		c += '; expires=' + exp.toGMTString();
+	}
+	if(domain) {c += '; domain =' + domain;}
+	if(path) {c += '; path =' + path;}
+	if(secure) {c += '; secure';}
+	document.cookie = c;
+
+}
+
+//クッキー値を取得
+function getCookie(name) {
+	var cs = document.cookie.split(';');
+	for (var i = 0; i < cs.length; i++) {
+		var kv = cs[i].split('=');
+		if(kv[0] == name) { return decodeURIComponent(kv[1]); }
+	}
+	return null;
+}
+
+var cnt = getCookie('js_cnt');
+cnt = cnt ? ++cnt : 1;
+setCookie('js_cnt, cnt, 90');
+document.write('あなたはこのサイトに' + cnt + '回、アクセスしました。');
+
 </script>
 </head>
 <body>
