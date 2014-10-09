@@ -35,29 +35,25 @@ pre {
 <!--script src="./js/jquery-1.11.1.js"></script-->
 <script src="./js/main.js"></script>
 <script type="text/javascript">
-
 (function($) {
 	$(function() {
-	var tab = $('#tabNav01 li');
-	var sec = $('#contentsBody div');
-	var i =  getCookie('js_xxx');
+		var tab = $('#tabNav01 li');
+		var sec = $('#contentsBody div');
+		var gtc =  getCookie('js_xxx');
 
-	$('#contentsBody div:not(:eq('+i+'))').hide();
+		$('#contentsBody div:not(:eq('+gtc+'))').hide();
+		tab.removeClass('active').eq(gtc).addClass('active');
+		sec.hide().eq(gtc).show();
 
-	if (i) {
-		tab.removeClass('active').eq(i).addClass('active');
-		sec.hide().eq(i).show();
-	}
-
-	tab.click(function (name, value, expires){
+		tab.click(function (){
 			sec.hide();
 			tab.removeClass('active');
 			$(this).addClass('active');
 			var secID = $($(this).find('a').attr("href"));
 			secID.show();
 
-			var index = tab.index(this);
-			//クッキーの登録
+			var index = tab.index(this); //クリックした要素の順番
+			//をクッキーに登録
 			function setCookie(name, value, expires) {
 				var zzz= '';
 				zzz+= name + '=' + encodeURIComponent(value);
@@ -70,43 +66,20 @@ pre {
 				document.cookie = zzz;
 			}
 			setCookie('js_xxx', index, 3);  //setCookieに値渡す、expiresは値しか無理
-	});
+		});
+
+		//クッキー値を取得
+		function getCookie(name) {
+			var xxx = document.cookie.split(';');
+			for (var i = 0; i < xxx.length; i++) {
+				var yyy = xxx[i].split('=');
+				if(yyy[0] == name) { return decodeURIComponent(yyy[1]); }
+			}
+			console.log(xxx);
+			return null;
+		}
 	});
 })(jQuery);
-
-//クッキーの登録
-function setCookie(name, value, expires, domain, path, secure) {
-	var c = '';
-	c += name + '=' + encodeURIComponent(value);
-	if(expires) {
-		var exp = new Date();
-		exp.setDate(exp.getDate() + expires);
-		c += '; expires=' + exp.toGMTString();
-	}
-	if(domain) {c += '; domain =' + domain;}
-	if(path) {c += '; path =' + path;}
-	if(secure) {c += '; secure';}
-	document.cookie = c;
-}
-
-//クッキー値を取得
-function getCookie(name) {
-	var cs = document.cookie.split(';');
-	for (var i = 0; i < cs.length; i++) {
-		var kv = cs[i].split('=');
-		if(kv[0] == name) { return decodeURIComponent(kv[1]); }
-	}
-	return null;
-}
-
-var cnt = getCookie('js_cnt');
-cnt = cnt ? ++cnt : 1;
-setCookie('js_cnt', cnt, 3);  //setCookieに値渡す
-document.write('あなたはこのサイトに' + cnt + '回、アクセスしました。');
-
-
-
-
 </script>
 </head>
 <body>
