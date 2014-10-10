@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
   grunt.initConfig({
     watch: {
-      files: 'index.html', //監視したいファイルを指定
+      files: '*html', //監視したいファイルを指定
       options: {
         livereload: true //livereloadを有効
       }

@@ -42,11 +42,14 @@ pre {
 	var sec = $('#contentsBody div');
 	var i =  getCookie('js_xxx');
 
-	$('#contentsBody div:not(:eq('+i+'))').hide();
-
-	if (i) {
+	if (i>0) {
+		$('#contentsBody div:not(:eq('+i+'))').hide();
 		tab.removeClass('active').eq(i).addClass('active');
 		sec.hide().eq(i).show();
+	} else {
+		$('#contentsBody div:not(:eq(0))').hide();
+		tab.removeClass('active').eq(0).addClass('active');
+		sec.hide().eq(0).show();
 	}
 
 	tab.click(function (name, value, expires){
