@@ -22,7 +22,7 @@ footer {
 .pageTop {
 	width: 40px;
 	height: 40px;
-	background-color: yellow;
+	background-color: blue;
 	float: right;
 
 }
@@ -35,19 +35,108 @@ footer {
 #linkTab {
 	position: absolute;
 	right: 0;
-	z-index: 999;
+	z-index: 99;
 	height: 200px;
 	width: 60px;
 	background-color: #111;
 }
 
+#data {
+	position: fixed;
+	z-index: 999;
+	color: #fff;
+	background-color: red;
+}
+#data2 {
+	position: fixed;
+	z-index: 999;
+	top: 60px;
+	color: #fff;
+	background-color: blue;
+}
 </style>
 <script src="./js/jquery-2.1.1.min.js"></script>
 <!--script src="./js/jquery-1.11.1.js"></script-->
 <script src="./js/main.js"></script>
 <script type="text/javascript">
+$(function () {
+	$(window).scroll(scrollFunc);
+});
+
+function scrollFunc(eo){
+	var win   =$(window);
+	var page   =$(document);
+	var ctWiz = $('#content').width();
+	var tab = $("#linkTab");
+
+	var pos1 = $("header").outerHeight() ; //ヘッダーの厚み位置
+	var pos2 = (win.height() /2) - (tab.outerHeight() /2); //中央位置
+	var pos3 = $("footer").outerHeight()+$(".pageTop").outerHeight(); //フッターの厚み＋余白位置
+	var pos4 = (win.height()-pos1-tab.height()) / 2; //ヘッダーの厚み位置からスクロールして中央位置に来るまでの距離
+	var pos5 = (win.height()-pos3-tab.height()) / 2; //ヘッダーの厚み位置からスクロールして中央位置に来るまでの距離
+
+	var sPos = win.scrollTop() + win.height(); //スクロールした位置（０〜ページ最大長までで）
+	var posS = page.height()  - sPos;
+
+	$('#data').text('スクロール位置：' + sPos+'｜ページ長さ：' + page.height() +'｜コンテンツ幅：' + ctWiz+'｜ウィンドウ横幅：' + win.width()+'｜ウィンドウ縦幅：' + win.height()+'｜タブの高さ：' + tab.height());
+	$('#data2').text(pos5 +  'doc-位置：' + posS +'｜ポジ１：' + pos1 +'｜ポジ２：' + pos2+'｜ポジ３：' + pos3 + '｜ポジ４：' + pos4);
+
+/*
+650-225
+286
+425-340
+tab + pos2
+	//それ以外は真ん中
+	if ( sPos > pos4) {
+		tab.css({
+			"position": "fixed",
+			"top": pos2,
+			"bottom": ""
+		});
+	} else {
+		//ヘッダーにいったとき
+		if (posS<= 115) {
+			tab.css({
+				"position": "absolute",
+				"top": "",
+				"bottom": pos3
+			});
+		}
+		//ヘッダーにいったとき
+		else {
+			tab.css({
+				"position": "absolute",
+				"top": pos1,
+				"bottom": ""
+			});
+		}
+	}
+*/
+
+	if (  posS<= 115) {
+		tab.css({
+			"position": "absolute",
+			"top": "",
+			"bottom": pos3
+		});
+	}
+	//ヘッダーにいったとき
+	else {
+		tab.css({
+		"position": "fixed",
+		"top": pos2,
+		"bottom": ""
+		});
+	}
+}
+//これは省略型？ http://www.jquerystudy.info/reference/events/scroll.html
+$(window).scroll(function (){
+});
+
 
 (function($){
+
+/*
 	$.fn.linkTab = function(container){
 
 			var self = $(this),
@@ -92,27 +181,25 @@ console.log(footHeight);
 						"top": headHeight,
 						"bottom": ""
 					});
-				}/* //それ以外は真ん中
+				}//それ以外は真ん中
 				else {
 					self.css({
 						"position": "fixed",
 						"top": topPosition,
 						"bottom": ""
 					});
-				}*/
+				}
 			});
 			$(window).scroll();
 	};
+*/
 })(jQuery);
 
-
-$(function(){
-	//sideBtn
-	$('#linkTab').linkTab('#container');
-});
 </script>
 </head>
 <body>
+<div id="data"></div>
+<div id="data2"></div>
 <div id="wrap">
 <header></header>
 <div id="content">
