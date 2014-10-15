@@ -57,50 +57,35 @@ footer {
 </style>
 <script src="./js/jquery-2.1.1.min.js"></script>
 <!--script src="./js/jquery-1.11.1.js"></script-->
-<script src="./js/main.js"></script>
+<!--script src="./js/main.js"></script-->
 <script type="text/javascript">
 
 (function(){
-
-  var win,
-      doc,
-      sPos,
-      posS;
-
-  var btn,
-      data1,
-      data2;
-
-  var btnH,
-      head,
-      fot;
-
-  var vMdl,
-      xxx,
-      zzz;
-
+  var win, doc, sPos, posS;
+  var btn, data1, data2;
+  var btnH, head, fot;
+  var vMdl, xxx, zzz;
   var resizeFlag = false;
 
   function getResult(){
-    win   = $(window).height();
-    doc   = $(document).height();
+    win  = $(window).height();
+    doc  = $(document).height();
     vMdl = (win - btnH) / 2; //中央位置
-    xxx = head - (win -(vMdl + btnH)); //中央位置+ヘッダーの厚み位置差分
+    xxx  = head - (win -(vMdl + btnH)); //中央位置+ヘッダーの厚み位置差分
     zzz  = fot - (win - (vMdl + btnH)); //中央位置+フッターの厚み位置差分
     console.log('get');
   }
 
   $(function(){
-    btn = $("#linkBtn"); //タブ
+    btn   = $("#linkBtn"); //タブ
     data1 = $("#data");
     data2 = $("#data2");
-    btnH = btn.outerHeight(); //タブの高さ
-    head = $("header").outerHeight(); //ヘッダーの高さ
-    fot = $("footer").outerHeight() + $(".pageTop").outerHeight(); //フッターの高さ＋余白
+    btnH  = btn.outerHeight(); //タブの高さ
+    head  = $("header").outerHeight(); //ヘッダーの高さ
+    fot   = $("footer").outerHeight() + $(".pageTop").outerHeight(); //フッターの高さ＋余白
     getResult();
   });
 
-  
   $(window).resize(function(){
     clearTimeout(resizeFlag);
     resizeFlag = setTimeout(function(){
@@ -112,7 +97,7 @@ footer {
     sPos = $(window).scrollTop(); //スクロールした位置（０〜ページ最大長までで）
     posS = doc - sPos - win; //ページ最大長からスクロールラストし位置まで
 
-    //計測　
+    //計測
     data1.text('win：' + win+'｜doc：' + doc +'｜sPos：' + sPos +'｜posS：' + posS);
     data2.text('vMdl：' + vMdl+'｜xxx：' + xxx+'｜zzz：' + zzz+'｜head：' + head +'｜fot：' + fot +'｜btnH：' + btnH);
 
