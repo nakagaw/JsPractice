@@ -33,82 +33,53 @@ pre {
 </style>
 <script src="./js/jquery-2.1.1.min.js"></script>
 <!--script src="./js/jquery-1.11.1.js"></script-->
-<script src="./js/main.js"></script>
+<!--script src="./js/main.js"></script-->
 <script type="text/javascript">
 
-(function($) {
 	$(function() {
-	var tab = $('#tabNav01 li');
-	var sec = $('#contentsBody div');
-	var i =  getCookie('js_xxx');
+		var tab = $('#tabNav01 li');
+		var sec = $('#contentsBody div');
+		var gct =  getCookie('js_xxx'); //クッキーに保存されたタブ番取得
 
-	if (i>0) {
-		$('#contentsBody div:not(:eq('+i+'))').hide();
-		tab.removeClass('active').eq(i).addClass('active');
-		sec.hide().eq(i).show();
-	} else {
-		$('#contentsBody div:not(:eq(0))').hide();
-		tab.removeClass('active').eq(0).addClass('active');
-		sec.hide().eq(0).show();
-	}
+		tab.removeClass('active').eq(gct).addClass('active'); //gctをactive
+		sec.hide().eq(gct).show(); //sec一旦全部消して、gctのsecだけ表示
 
-	tab.click(function (name, value, expires){
-			sec.hide();
-			tab.removeClass('active');
-			$(this).addClass('active');
-			var secID = $($(this).find('a').attr("href"));
-			secID.show();
+		tab.click(function (name, value, expires){
+			sec.hide(); //セクション全部隠す
+			tab.removeClass('active'); //active一旦全部とる
+			$(this).addClass('active'); //このタブにだけactive追加
+			var secID = $($(this).find('a').attr("href")); //タブのaからsecID取る
+			secID.show(); //そのsecIDのみ表示
+			var index = tab.index(this); //このタブの順番を取得
+			setCookie('js_xxx', index, 90); //クッキー名とタブ番、有効期限90日を設定
+		});
 
-			var index = tab.index(this);
-			//クッキーの登録
-			function setCookie(name, value, expires) {
-				var zzz= '';
-				zzz+= name + '=' + encodeURIComponent(value);
-				if(expires) {
-					var exp = new Date();
-					exp.setDate(exp.getDate() + expires);
-					zzz+= '; expires=' + exp.toGMTString();
-				}
-				console.log(zzz);
-				document.cookie = zzz;
+		//クッキーを登録するsetCookie関数
+		function setCookie(name, value, expires) {
+			var newCook= ''; //クッキー文字列をいれる変数
+			//name=valueとして追加
+			newCook += name + '=' + encodeURIComponent(value);
+			if(expires) { //有効期限があれば設定
+				var exp = new Date();
+				exp.setDate(exp.getDate() + expires);
+				newCook += '; expires=' + exp.toGMTString();
 			}
-			setCookie('js_xxx', index, 3);  //setCookieに値渡す、expiresは値しか無理
+			document.cookie = newCook; //クライアントに書き込む
+		}
+
+		//指定されたクッキー値を取得するgetCookie関数
+		function getCookie(name) {
+			var cList = document.cookie.split(';'); //取得したクッキーを分割
+			for (var i = 0; i < cList.length; i++) {
+				//名前を順番に確認
+				var cName = cList[i].split('=');
+				//＝でクッキー情報を分割、名前が引数nameと同じなら
+				//デコードして返す
+				if(cName[0] == name) { return decodeURIComponent(cName[1]); }
+			}
+			return null; //該当する名前のクッキーがない場合、空で返す
+		}
 	});
-	});
-})(jQuery);
-
-//クッキーの登録
-function setCookie(name, value, expires, domain, path, secure) {
-	var c = '';
-	c += name + '=' + encodeURIComponent(value);
-	if(expires) {
-		var exp = new Date();
-		exp.setDate(exp.getDate() + expires);
-		c += '; expires=' + exp.toGMTString();
-	}
-	if(domain) {c += '; domain =' + domain;}
-	if(path) {c += '; path =' + path;}
-	if(secure) {c += '; secure';}
-	document.cookie = c;
-}
-
-//クッキー値を取得
-function getCookie(name) {
-	var cs = document.cookie.split(';');
-	for (var i = 0; i < cs.length; i++) {
-		var kv = cs[i].split('=');
-		if(kv[0] == name) { return decodeURIComponent(kv[1]); }
-	}
-	return null;
-}
-
-var cnt = getCookie('js_cnt');
-cnt = cnt ? ++cnt : 1;
-setCookie('js_cnt', cnt, 3);  //setCookieに値渡す
-document.write('あなたはこのサイトに' + cnt + '回、アクセスしました。');
-
-
-
 
 </script>
 </head>
@@ -122,11 +93,11 @@ document.write('あなたはこのサイトに' + cnt + '回、アクセスし�
 		<li><a href="#sec05">tab E</a></li>
 	</ul>
 	<div id="contentsBody">
-		<div id="sec01">A</div>
-		<div id="sec02">B</div>
-		<div id="sec03">C</div>
-		<div id="sec04">D</div>
-		<div id="sec05">E</div>
+		<div id="sec01" style="background-color: blue">A</div>
+		<div id="sec02" style="background-color: red">B</div>
+		<div id="sec03" style="background-color: yellow">C</div>
+		<div id="sec04" style="background-color: green">D</div>
+		<div id="sec05" style="background-color: orange">E</div>
 	</div>
 </body>
 </html>
