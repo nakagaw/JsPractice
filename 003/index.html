@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>JSの練習とかもろもろやる</title>
+<style type="text/css">
+*{ margin: 0; padding: 0}
+
+</style>
+<script src="./js/jquery-2.1.1.min.js"></script>
+<!--script src="./js/jquery-1.11.1.js"></script-->
+<!--script src="./js/main.js"></script-->
+<script type="text/javascript">
+$(function() {
+  var div = $('<div>',{id: 'content', text:'コンテンツはここに表示'}).appendTo(document.body);
+  $(div).load('include.html')
+});
+</script>
+</head>
+<body>
+<div id="wrap">
+<header></header>
+<div id="content">
+
+</div>
+<footer></footer>
+</div>
+</body>
+</html>
