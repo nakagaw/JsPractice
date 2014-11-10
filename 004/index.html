@@ -2,102 +2,33 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>JSの練習とかもろもろやる</title>
-<style type="text/css">
-ul#tabNav01 li,
-ul#tabNav02 li {
-	display: inline-block;
-	*display: inline;
-	*zoom: 1;
-	padding: 10px;
-	border: 1px solid #111;
-	list-style: none;
-}
-ul#tabNav01 li.active,
-ul#tabNav02 li.on {
-	background-color: #ff0;
-}
-div#contentsBody div,
-div#section div {
-	width: 50px;
-	padding: 200px;
-	background-color: #111;
-	color: #fff;
-}
-pre {
-	margin-bottom: 20px;
-	padding: 15px;
-	border: 5px solid #111;
-	background-color: #eee;
-}
-</style>
-<script src="./js/jquery-2.1.1.min.js"></script>
-<!--script src="./js/jquery-1.11.1.js"></script-->
-<!--script src="./js/main.js"></script-->
-<script type="text/javascript">
-
-	$(function() {
-		var tab = $('#tabNav01 li');
-		var sec = $('#contentsBody div');
-		var gct =  getCookie('js_xxx'); //クッキーに保存されたタブ番取得
-
-		tab.removeClass('active').eq(gct).addClass('active'); //gctをactive
-		sec.hide().eq(gct).show(); //sec一旦全部消して、gctのsecだけ表示
-
-		tab.click(function (name, value, expires){
-			sec.hide(); //セクション全部隠す
-			tab.removeClass('active'); //active一旦全部とる
-			$(this).addClass('active'); //このタブにだけactive追加
-			var secID = $($(this).find('a').attr("href")); //タブのaからsecID取る
-			secID.show(); //そのsecIDのみ表示
-			var index = tab.index(this); //このタブの順番を取得
-			setCookie('js_xxx', index, 90); //クッキー名とタブ番、有効期限90日を設定
-		});
-
-		//クッキーを登録するsetCookie関数
-		function setCookie(name, value, expires) {
-			var newCook= ''; //クッキー文字列をいれる変数
-			//name=valueとして追加
-			newCook += name + '=' + encodeURIComponent(value);
-			if(expires) { //有効期限があれば設定
-				var exp = new Date();
-				exp.setDate(exp.getDate() + expires);
-				newCook += '; expires=' + exp.toGMTString();
-			}
-			document.cookie = newCook; //クライアントに書き込む
-		}
-
-		//指定されたクッキー値を取得するgetCookie関数
-		function getCookie(name) {
-			var cList = document.cookie.split(';'); //取得したクッキーを分割
-			for (var i = 0; i < cList.length; i++) {
-				//名前を順番に確認
-				var cName = cList[i].split('=');
-				//＝でクッキー情報を分割、名前が引数nameと同じなら
-				//デコードして返す
-				if(cName[0] == name) { return decodeURIComponent(cName[1]); }
-			}
-			return null; //該当する名前のクッキーがない場合、空で返す
-		}
-	});
-
-</script>
+<title>Backbone.jsを使ったメモアプリ</title>
+<link rel="stylesheet" href="./css/bootstrap.css">
+<script src="./js/lib/jquery-2.1.1.min.js"></script>
+<script src="./js/lib/underscore.js"></script>
+<script src="./js/lib/backbone.js"></script>
+<script src="./js/lib/backbone.localStorage.js"></script>
+<script src="./js/app.js"></script>
+<script src="./js/models.js"></script>
+<script src="./js/container.js"></script>
 </head>
 <body>
+	<div id="header">
+		<div class="navbar navbar-defult navbar-static-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<span class="navbar-brand">
+						<a href="./index.html">
+							Note Application Example
+						</a>
+					</span>
+				</div>
+			</div>
+	</div>
 
-	<ul id="tabNav01">
-		<li class="active"><a href="#sec01">tab A</a></li>
-		<li><a href="#sec02">tab B</a></li>
-		<li><a href="#sec03">tab C</a></li>
-		<li><a href="#sec04">tab D</a></li>
-		<li><a href="#sec05">tab E</a></li>
-	</ul>
-	<div id="contentsBody">
-		<div id="sec01" style="background-color: blue">A</div>
-		<div id="sec02" style="background-color: red">B</div>
-		<div id="sec03" style="background-color: yellow">C</div>
-		<div id="sec04" style="background-color: green">D</div>
-		<div id="sec05" style="background-color: orange">E</div>
+	<div id="main" class="container">
+		<div id="header-container"></div>
+		<div id="main-container"></div>
 	</div>
 </body>
 </html>
