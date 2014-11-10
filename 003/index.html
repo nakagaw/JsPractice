@@ -12,8 +12,17 @@
 <!--script src="./js/main.js"></script-->
 <script type="text/javascript">
 $(function() {
-  var div = $('<div>',{id: 'content', text:'コンテンツはここに表示'}).appendTo(document.body);
-  $(div).load('include.html')
+  $('<div>',{text: '最初のdiv'}).appendTo(document.body);
+  $('<div>',{text: '最後のdiv'}).appendTo(document.body);
+
+  //Promimseオブジェクトによる処理の登録
+  $('div').load('include.html').delay(1).promise().done(function(){
+    this.append(this.find('ul li').length/* 6 */+'件のデータがあります');
+  });
+  //コールバック関数による処理の登録
+  $('div').load('include.html', function (respomseText, statusText, jpXHR) {
+    $(this).append($(this).find('ul li').length/* 3 */+'件のデータがあります');
+  });
 });
 </script>
 </head>
