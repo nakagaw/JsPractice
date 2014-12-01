@@ -6,7 +6,7 @@ App.Container = Backbone.View.extend({
 		//現在表示しているビューを破棄する
 		this.destroyView(this.currentView);
 		//新しいビューを表示する
-		this.$el.append(view.render().#el);
+		this.$el.append(view.render().$el);
 		//新しいビューを保持する
 		this.currentView = view;
 	},
@@ -20,11 +20,11 @@ App.Container = Backbone.View.extend({
 		//イベントの監視をすべて解除する
 		view.off();
 		//ビューの削除
-		view.remove;
+		view.remove();
 	},
 
 	empty: function () {
 		this.destroyView(this.currentView);
 		this.currentView = null;
 	}
-})
+});

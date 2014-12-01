@@ -1,13 +1,13 @@
 // js/models.js
 
 App.Note = Backbone.Model.extend({
-	default: {
+	defaults: {
 		title: '',
 		body: ''
 	}
 });
 
 App.NoteCollection = Backbone.Collection.extend({
-	localStrage: new Backbone.LocalStrage('Notes'),
+	localStorage: new Backbone.LocalStorage('Notes'),
 	model: App.Note
 });

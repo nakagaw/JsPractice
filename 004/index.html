@@ -5,12 +5,21 @@
 <title>Backbone.jsを使ったメモアプリ</title>
 <link rel="stylesheet" href="./css/bootstrap.css">
 <script src="./js/lib/jquery-2.1.1.min.js"></script>
-<script src="./js/lib/underscore.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/lib/underscore_1.6.js"></script>
 <script src="./js/lib/backbone.js"></script>
 <script src="./js/lib/backbone.localStorage.js"></script>
 <script src="./js/app.js"></script>
 <script src="./js/models.js"></script>
 <script src="./js/container.js"></script>
+<script src="./js/note_list_item.js"></script>
+<script src="./js/note_list.js"></script>
+<script src="./js/note_detail.js"></script>
+<script src="./js/note_form.js"></script>
+<script src="./js/router.js"></script>
+<script src="./js/note_control.js"></script>
+
+
 </head>
 <body>
 	<div id="header">
@@ -18,17 +27,92 @@
 			<div class="navbar-inner">
 				<div class="container">
 					<span class="navbar-brand">
-						<a href="./index.html">
+						<a href="./index.html#notes">
 							Note Application Example
 						</a>
 					</span>
 				</div>
 			</div>
+		</div>
 	</div>
 
 	<div id="main" class="container">
 		<div id="header-container"></div>
 		<div id="main-container"></div>
 	</div>
+
+
+
+<script type="text/template" id="noteListView-template">
+<!--
+メモ一覧を表示する&lt;table&gt;要素のためのテンプレート
+&lt;table&gt;要素自体はBackbone.Viewが生成する
+-->
+<thead>
+<th class="col-md-2" colspan="2">Title</th>
+</thead>
+<!-- この&lt;tbody&gt;要素配下に個々のメモ情報を挿入する -->
+<tbody class="js-noteListItemView-container"></tbody>
+</script>
+
+<script type="text/template" id="noteListItemView-template">
+<!--
+個々のメモ情報を表示する&lt;tr&gt;要素のためのテンプレート
+&lt;tr&gt;要素自体はBackbone.Viewが生成する
+-->
+<td>
+	<a href="#notes/<%= id %>">
+		<%= title %>
+	</a>
+</td>
+<td>
+	<div class="text-right">
+		<a href="#notes/<%= id %>/edit" class="btn btn-defult btn-sm js-edit">
+			<span class="glyphicon glyphicon-edit"></span>
+			Edit
+		</a>
+		<a href="#" class="btn btn-danger btn-sm js-delete">
+			<span class="glyphicon glyphicon-remove"></span>
+			Delete
+		</a>
+	</div>
+</td>
+</script>
+
+<script type="text/template" id="noteDetailView-template">
+<h2><%= title %></h2>
+<p><%= body %></p>
+</script>
+
+<script type="text/template" id="noteControlView-template">
+<!-- New Noteボタンテンプレ -->
+<div class="row">
+	<div class="col-sm-6">
+		<!--検索-->
+	</div>
+
+	<div class="col-sm-6 text-right">
+		<a href="#new" class="btn btn-primary btn-small js-new">
+		New Note
+		</a>
+	</div>
+</div>
+</script>
+
+<script type="text/template" id="noteForm-template">
+<!-- メモ入力フォームテンプレ -->
+<form>
+<div class="form-group">
+	<label for="noteTitle">Title</label>
+	<input type="text" class="form-control js-noteTitle" id="noteTitle" value="<%= title %>">
+</div>
+<div class="form-group">
+	<label for="noteBody">Body</label>
+	<textarea class="form-control js-noteBody" rows="8"><%= body %></textarea>
+</div>
+<button type="submit" class="btn btn-default">Submit</button>
+</form>
+</script>
+
 </body>
 </html>
