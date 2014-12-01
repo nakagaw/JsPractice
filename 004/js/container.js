@@ -2,7 +2,7 @@
 
 App.Container = Backbone.View.extend({
 
-	show: function(view) {
+	show : function(view) {
 		//現在表示しているビューを破棄する
 		this.destroyView(this.currentView);
 		//新しいビューを表示する
@@ -11,7 +11,7 @@ App.Container = Backbone.View.extend({
 		this.currentView = view;
 	},
 
-	destroyView: function(view) {
+	destroyView : function(view) {
 		//現在のビューを持っていなければ何もしない
 		if (!view) {
 			return;
@@ -23,8 +23,12 @@ App.Container = Backbone.View.extend({
 		view.remove();
 	},
 
-	empty: function () {
+	empty : function() {
 		this.destroyView(this.currentView);
 		this.currentView = null;
+	},
+
+	has : function(obj) {
+		return this.currentView instanceof obj;
 	}
 });

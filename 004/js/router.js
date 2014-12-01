@@ -6,6 +6,7 @@ App.Router = Backbone.Router.extend({
 		'notes/:id' : 'showNoteDetail',
 		'new' : 'showNewNote',
 		'notes/:id/edit' : 'showEditNote',
+		'notes/search/:query' : 'searchNote',
 		'*actions' : 'defaultRoute'
 	},
 
@@ -29,18 +30,46 @@ App.Router = Backbone.Router.extend({
 		this.navigate('notes');
 	},
 
-	showNoteList : function() {
-		var noteListView = new App.NoteListView({
-			collection: App.noteCollection
-		});
-		App.mainContainer.show(noteListView);
+	//引数modelsを受け取るように変更
+	showNoteList : function(models) {
+
+		//一覧表示用のコレクションを別途初期化する
+		if (!this.filteredCollection) {
+			this.filteredCollection = new App.NoteCollection();
+		}
+
+		//NoteListViewのインスタンスが表示中でないときのみ
+		//これを初期化して表示する
+		if (!App.mainContainer.has(App.NoteListView)) {
+			//初期化の際に一覧表示用のコレクションを渡しておく
+			var noteListView = new App.NoteListView({
+				collection : this.filteredCollection
+			});
+			App.mainContainer.show(noteListView);
+		}
+
+		//検索されたモデルの配列が引数に渡されていればそちらを、
+		//そうでなければ、すべてのモデルを持つApp.noteCollection
+		//インスタンスのモデルの配列を仕様する
+		models = models || App.noteCollection.models;
+
+		//一覧表示用のコレクションのreset()メソッドに
+		//採用したほうのモデルの配列を渡す
+		this.filteredCollection.reset(models);
 		//メモ一覧操作ビューを表示するメソッドの呼び出しを追加
 		this.showNoteControl();
 	},
 
-	//メモいちらん操作ビューを表示するメソッドを追加
+	//メモ一覧操作ビューを表示するメソッドを追加
 	showNoteControl : function() {
 		var noteControlView = new App.NoteControlView();
+
+		//submit : formイベントの監視を追加する
+		noteControlView.on('submit : form', function(query) {
+			this.searchNote(query);
+			this.navigate('notes/search/' + query);
+		}, this);
+
 		App.headerContainer.show(noteControlView);
 	},
 
@@ -92,5 +121,12 @@ App.Router = Backbone.Router.extend({
 		App.mainContainer.show(noteFormView);
 		//[New Note]ボタンはこの画面では必要ないのでビューを破棄
 		App.headerContainer.empty();
+	},
+
+	searchNote : function(query) {
+		var filtered = App.noteCollection.filter(function(note) {
+			return note.get('title').indexOf(query) !== -1;
+		});
+		this.showNoteList(filtered);
 	}
  });
