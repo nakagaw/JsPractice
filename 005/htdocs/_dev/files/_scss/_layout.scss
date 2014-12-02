@@ -1,10 +1,3 @@
-
-
-div {
-	float: left;
-	margin: $yohaku01;
-	padding: $yohaku02;
-	width: $col_size;
-	background: $main_color;
-	@include box-shadow( 0 0 10px $main_color);
+body {
+  padding: 100px;
 }

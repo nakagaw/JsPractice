@@ -1,8 +1,8 @@
 {
   "name": "grunt_init",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "authors": [
-    "dono"
+    "nakagaw"
   ],
   "license": "MIT",
   "ignore": [
@@ -14,7 +14,9 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "1",
-    "html5-boilerplate": "~4.3.0"
+    "jquery": "2",
+    "html5-boilerplate": "~4.3.0",
+    "underscore": "1.7",
+    "backbone": "~1.1.2"
   }
 }

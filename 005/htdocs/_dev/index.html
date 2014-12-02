@@ -6,23 +6,15 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Backborn.js Ex</title>
+        <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <!-- link rel="stylesheet" href="/files/css/normalize.css"-->
-        <!-- link rel="stylesheet" href="/files/css/main.css"-->
-        <!-- script src="/files/js/modernizr-2.6.2.min.js"></script-->
-        <script src="/files/js/jquery.js"></script>
-        <script src="/files/js/lib/underscore.js"></script>
-        <script src="/files/js/lib/backbone.js"></script>
-        <!-- script src="/files/js/lib/backbone.localStorage.js"></script-->
-        <!-- script src="/files/js/app.js"></script-->
-        <script src="/files/js/models.js"></script>
-        <!-- script src="/files/js/container.js"></script-->
-        <!-- script src="/files/js/note_list_item.js"></script-->
+        <link rel="stylesheet" href="/files/css/normalize.css">
+        <link rel="stylesheet" href="/files/css/main.css">
+        <script src="/files/js/lib/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -30,11 +22,26 @@
         <![endif]-->
 
         <!-- Add your site or application content here -->
+<script src="/files/js/lib/jquery.js"></script>
+<script src="/files/js/lib/underscore.js"></script>
+<script src="/files/js/lib/backbone.js"></script>
 
-        <script type="text/template" id="contact-template">
-        <div>Name: <%= firstName %> <%= lastName %></div>
-        <div>Email: <%= email %></div>
+<script src="/files/js/models.js"></script>
+<script src="/files/js/view.js"></script>
+
+
+
+
+
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
         </script>
-
     </body>
 </html>

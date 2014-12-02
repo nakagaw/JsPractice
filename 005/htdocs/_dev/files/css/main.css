@@ -87,15 +87,8 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-div {
-  float: left;
-  margin: 10px;
-  padding: 20px;
-  width: 300px;
-  background: #ff0;
-  -moz-box-shadow: 0 0 10px #ff0;
-  -webkit-box-shadow: 0 0 10px #ff0;
-  box-shadow: 0 0 10px #ff0;
+body {
+  padding: 100px;
 }
 
 .btn {
@@ -278,3 +271,5 @@ div {
     page-break-after: avoid;
   }
 }
+
+/*# sourceMappingURL=main.css.map */
