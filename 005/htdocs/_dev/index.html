@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Backbone.js</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -22,12 +22,39 @@
         <![endif]-->
 
         <!-- Add your site or application content here -->
+
+
+<h1>Tasks</h1>
+<form id="addTask">
+    <input type="text" id="title">
+    <input type="submit" value="add">
+    <span id="error"></span>
+</form>
+
+<div id="tasks"></div>
+<p>残タスク <span id="count"></span></p>
+
+ <script type="text/template" id="task-template">
+ <label>
+ <input type="checkbox" class="toggle" <%= completed ? 'checked': '' %>>
+<span class="<%= completed ? 'completed' : '' %>"><%= title %></span>
+</label>
+<span class="delete">[×]</span>
+</script>
+
 <script src="/files/js/lib/jquery.js"></script>
 <script src="/files/js/lib/underscore.js"></script>
 <script src="/files/js/lib/backbone.js"></script>
+<script src="/files/js/lib/backbone.localStorage.js"></script>
 
-<script src="/files/js/models.js"></script>
-<script src="/files/js/view.js"></script>
+
+<script src="/files/js/app.js"></script>
+<!-- <script src="/files/js/models.js"></script>
+<script src="/files/js/container.js"></script>
+<script src="/files/js/todo_view.js"></script>
+<script src="/files/js/form_view.js"></script>
+<script src="/files/js/router.js"></script>
+<script src="/files/js/control.js"></script> -->
 
 
 

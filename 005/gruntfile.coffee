@@ -154,6 +154,8 @@ module.exports = (grunt)->
       js:
         files: "<%= dir.dev %><%= dir.coffee %>**/*.coffee"
         tasks : ['coffee']
+      js2:
+        files: "<%= dir.dev %><%= dir.js %>**/*.js"
 
 
     cssmin: #CSS連結/コンパイル
