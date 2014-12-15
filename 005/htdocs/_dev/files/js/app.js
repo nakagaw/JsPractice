@@ -1,6 +1,7 @@
 
 (function() {
 
+//モデルの定義
 var Task = Backbone.Model.extend({
 	defaults: {
 		title: 'do something!',
@@ -18,12 +19,15 @@ var Task = Backbone.Model.extend({
 		})
 	}
 });
+
+//コレクションの定義
 var Tasks = Backbone.Collection.extend({
 	//ローカルストレージにtasksで保存
 	localStorage: new Backbone.LocalStorage('tasks'),
 	model: Task
 });
 
+//タスクビューの定義
 var TaskView = Backbone.View.extend({
 	tagName: 'li',
 	initialize: function() {
@@ -36,6 +40,7 @@ var TaskView = Backbone.View.extend({
 	},
 	toggle: function() {
 		this.model.set('completed', !this.model.get('completed'));
+		this.model.save(); //ローカルストレージに変更を保存
 	},
 	destroy: function() {
 		if (confirm('are you sure?')) {
@@ -52,6 +57,8 @@ var TaskView = Backbone.View.extend({
 		return this;
 	}
 });
+
+//タスクコレクションビューの定義
 var TasksView = Backbone.View.extend({
 	tagName: 'ul',
 	initialize: function() {
@@ -75,7 +82,7 @@ var TasksView = Backbone.View.extend({
 	},
 	render: function() {
 		this.collection.each(function(task) {
-			var taskView = new TaskView({model: task});
+			var taskView = new TaskView({ model: task });
 			this.$el.append(taskView.render().el);
 		}, this);
 		this.updateCount();
@@ -83,6 +90,7 @@ var TasksView = Backbone.View.extend({
 	}
 });
 
+//タスク追加ビューの定義
 var AddTaskView = Backbone.View.extend({
 	el: '#addTask',
 	events: {
@@ -162,7 +170,6 @@ tasks.fetch().then(function(task){
 	var container = new Container();
 	container.show(tasksView);
 });
-
 
 })();
 
